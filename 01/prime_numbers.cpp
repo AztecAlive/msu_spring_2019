@@ -5,7 +5,8 @@
 const size_t ArraySize=100000;
 using namespace std;
 vector <bool> primeNumbers(size_t n);
-int simpleSearch (const int* Data, int start, int finish, int key);
+int simpleSearchForward (const int* Data, int start, int finish, int key);
+int simpleSearchBackward (const int* Data, int start, int finish, int key);
 int main(int argc, char* argv[])
 {
     if(argc % 2 == 0 || argc == 1)
@@ -16,8 +17,8 @@ int main(int argc, char* argv[])
     {
         int start = atoi(argv[j]);
         int finish = atoi(argv[j + 1]);
-        int from = simpleSearch(Data,0,Size,start);
-        int to = simpleSearch(Data,0,Size,finish);
+        int from = simpleSearchForward(Data,0,Size,start);
+        int to = simpleSearchBackward(Data,Size,0,finish);
         if(to == -1 || from == -1)
         {
             cout<< "0";
@@ -47,9 +48,9 @@ vector <bool> primeNumbers(size_t n)
     }
     return prime;
 }
-int simpleSearch (const int* Data, int start, int finish, int key)
+int simpleSearchForward (const int* Data, int start, int finish, int key)
 {
-    for(int i = start; i <= finish; ++i)
+    for(int i = start; i < finish; ++i)
     {
         if(key == Data[i])
         {
@@ -58,4 +59,14 @@ int simpleSearch (const int* Data, int start, int finish, int key)
     }
     return -1;
 }
-
+int simpleSearchBackward (const int* Data, int start, int finish, int key)
+{
+    for(int i = start-1; i >= finish; --i)
+    {
+        if(key == Data[i])
+        {
+            return i;
+        }
+    }
+    return -1;
+}
