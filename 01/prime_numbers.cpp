@@ -5,7 +5,7 @@
 const size_t ArraySize=100000;
 using namespace std;
 vector <bool> primeNumbers(size_t n);
-int searchBinary (const int* Data, int start, int finish, int key);
+int simpleSearch (const int* Data, int start, int finish, int key);
 int main(int argc, char* argv[])
 {
     if(argc % 2 == 0 || argc == 1)
@@ -16,8 +16,8 @@ int main(int argc, char* argv[])
     {
         int start = atoi(argv[j]);
         int finish = atoi(argv[j + 1]);
-        int from = searchBinary(Data,0,Size,start);
-        int to = searchBinary(Data,0,Size,finish);
+        int from = simpleSearch(Data,0,Size,start);
+        int to = simpleSearch(Data,0,Size,finish);
         if(to == -1 || from == -1)
         {
             cout<< "0";
@@ -47,19 +47,15 @@ vector <bool> primeNumbers(size_t n)
     }
     return prime;
 }
-int searchBinary (const int* Data, int start, int finish, int key)
+int simpleSearch (const int* Data, int start, int finish, int key)
 {
-    int mid;
-    while (true)
+    for(int i = start; i <= finish; ++i)
     {
-        mid = (start + finish) / 2;
-        if (key < Data[mid])
-            finish = mid - 1;
-        else if (key > Data[mid])
-            start = mid + 1;
-        else
-            return mid;
-        if (start > finish)
-            return -1;
+        if(key == Data[i])
+        {
+            return i;
+        }
     }
+    return -1;
 }
+
